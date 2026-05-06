@@ -1,12 +1,29 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial;
   background: #0f172a;
   color: white;
 }
 
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #020617;
+  padding: 15px;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+}
+
+/* SECTIONS */
 section {
-  padding: 80px 20px;
+  padding: 100px 20px;
   text-align: center;
 }
 
@@ -21,10 +38,6 @@ h1 {
   font-size: 60px;
 }
 
-h2 {
-  margin-bottom: 20px;
-}
-
 .project {
-  margin: 20px 0;
+  margin: 20px;
 }
