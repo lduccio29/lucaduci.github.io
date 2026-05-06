@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: white;
+}
+
+section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 60px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.project {
+  margin: 20px 0;
+}
