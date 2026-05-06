@@ -1,66 +1,487 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Luca Duci</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tommaso Arone - Machine Learning Engineer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <style>
+        :root {
+            /* Color Palette */
+            --bg-body: #ffffff;
+            --bg-sidebar: #f8f9fa;
+            --text-main: #111827;
+            --text-secondary: #4b5563;
+            --accent: #2563eb; /* Tech Blue */
+            --border: #e5e7eb;
+            --tag-bg: #eff6ff;
+            --tag-text: #1e40af;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background: var(--bg-body);
+            display: flex;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* --- LEFT SIDEBAR (Profile) --- */
+        aside {
+            width: 300px;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            padding: 40px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%; /* Makes it circular */
+            object-fit: cover;
+            margin-bottom: 25px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 { font-size: 1.75rem; font-weight: 700; line-height: 1.2; margin-bottom: 5px; }
+        .role { color: var(--accent); font-weight: 600; font-size: 1rem; margin-bottom: 30px; display: block; }
+
+        .contact-info { list-style: none; font-size: 0.9rem; margin-bottom: 30px; }
+        .contact-info li { margin-bottom: 12px; display: flex; align-items: center; color: var(--text-secondary); }
+        .contact-info i { width: 24px; color: var(--text-main); }
+        .contact-info a { text-decoration: none; color: var(--text-secondary); transition: 0.2s; }
+        .contact-info a:hover { color: var(--accent); }
+
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { font-size: 1.4rem; color: var(--text-secondary); transition: 0.2s; }
+        .social-links a:hover { color: var(--accent); transform: translateY(-2px); }
+
+        /* --- RIGHT MAIN CONTENT --- */
+        main {
+            margin-left: 300px; /* Same as sidebar width */
+            padding: 60px 80px;
+            flex: 1;
+            max-width: 1000px;
+        }
+
+        section { margin-bottom: 60px; }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+        }
+        h2 i { margin-right: 12px; color: var(--accent); font-size: 1.1rem; }
+
+        /* About Text Style */
+        .about-text {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            max-width: 800px;
+            margin-bottom: 20px;
+        }
+        .about-text strong { color: var(--accent); }
+
+        /* Timeline Items (Experience & Education) */
+        .timeline-item {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 35px;
+            border-left: 2px solid var(--border);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px; /* Center on the line */
+            top: 6px;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 2px solid #fff;
+        }
+
+        .date-range {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .item-title { font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+        .item-place { font-size: 1rem; color: var(--text-secondary); margin-bottom: 10px; font-style: italic; }
+        
+        .description-box {
+            background-color: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: #374151;
+            margin-top: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        /* Tags for Courses and Skills */
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid #dbeafe;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .skill-category { margin-bottom: 10px; }
+        .skill-category h4 { font-size: 0.9rem; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
+
+        /* --- PORTFOLIO GRID STYLES --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .project-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 25px;
+            background: #fff;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+        
+        .project-type {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--accent);
+            font-weight: 700;
+            background: var(--tag-bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            flex-grow: 1; /* Pushes the link to bottom */
+        }
+
+        .project-link {
+            font-size: 0.9rem;
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: 0.2s;
+        }
+        .project-link:hover { color: var(--accent); }
+        .project-link i { margin-right: 5px; }
+
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background-color: #24292e; /* Github black */
+            color: white;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn:hover { background-color: var(--accent); }
+        .btn i { margin-right: 8px; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 850px) {
+            body { flex-direction: column; }
+            aside { 
+                width: 100%; 
+                position: relative; 
+                height: auto; 
+                padding: 40px 20px;
+                text-align: center;
+                align-items: center;
+            }
+            main { margin-left: 0; padding: 40px 20px; }
+            .profile-photo { margin: 0 auto 25px auto; }
+            .contact-info li { justify-content: center; }
+            .social-links { justify-content: center; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Luca Duci</h1>
-  <p>AI Engineer · Data Scientist</p>
-</section>
+    <aside>
+        <img src="1683149504170.jpg" alt="Tommaso Arone" class="profile-photo">
+        
+        <h1>Tommaso Arone</h1>
+        <span class="role">Machine Learning Engineer</span>
 
-<!-- ABOUT -->
-<section class="about">
-  <div class="container">
-    <div class="text">
-      <h2>About Me</h2>
-      <p>
-        Master’s student in Data Science at UNIMIB.
-        Specialized in NLP, AI systems and sensitive data processing.
-        Experienced in building real-world AI pipelines.
-      </p>
-    </div>
-  </div>
-</section>
+        <ul class="contact-info">
+            <li><i class="fas fa-map-marker-alt"></i> Milan, Italy</li>
+            <li><i class="fas fa-envelope"></i> <a href="mailto:tommasoarone@gmail.com">tommasoarone@gmail.com</a></li>
+            <li><i class="fab fa-linkedin"></i> <a href="https://www.linkedin.com/in/tommaso-arone-44761b25a/" target="_blank">LinkedIn Profile</a></li>
+        </ul>
 
-<!-- PROJECTS -->
-<section class="projects">
-  <h2>Projects</h2>
+        <div class="social-links">
+            <a href="https://github.com/aronetommaso/TommasoArone" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </aside>
 
-  <div class="grid">
+    <main>
+        
+        <section id="about">
+            <h2><i class="fas fa-user"></i> About Me</h2>
+            <p class="about-text">
+                I am a driven <strong>working student</strong>, currently serving as a Machine Learning Engineer at Technoprobe while pursuing my Master's Degree in Data Science.
+            </p>
+            <p class="about-text">
+                With a rigorous <strong>background in Statistics</strong> (110 cum Laude), I possess a deep understanding of probability theory and uncertainty quantification. I am passionate about bridging the gap between theoretical statistical modeling and modern AI, aiming to build <strong>robust and explainable Machine Learning systems</strong>.
+            </p>
+        </section>
 
-    <div class="card">
-      <h3>Medical Text Anonymization</h3>
-      <p>NER + regex + transformers for clinical data anonymization.</p>
-    </div>
+        <section id="experience">
+            <h2><i class="fas fa-briefcase"></i> Work Experience</h2>
 
-    <div class="card">
-      <h3>AI Chatbot (RAG)</h3>
-      <p>LLM-based chatbot with document retrieval.</p>
-    </div>
+            <div class="timeline-item">
+                <span class="date-range">Sep 2025 - Present</span>
+                <div class="item-title">Junior Machine Learning Engineer</div>
+                <div class="item-place">Technoprobe</div>
+                <div class="description-box">
+                    OOD Detection & MLOps Automation: Leading the development of an Out-of-Distribution (OOD) detection model
+                    using Self-Supervised Learning (SSL). This initiative aims to automate the MLOps pipeline for a critical image classifier,
+                    ensuring model reliability by automatically flagging unknown or anomalous data classes without human supervision.
+                    Robust Computer Vision: Enhancing the robustness of visual inspection systems by reducing reliance on massive labeled
+                    datasets through Self Supervised Learning techniques.
+                    Production Deployment: Collaborating on the integration of ML models into the company’s production workflow,
+                    focusing on scalability and continuous monitoring.
+                </div>
+            </div>
 
-  </div>
-</section>
+            <div class="timeline-item">
+                <span class="date-range">Feb 2025 - May 2025</span>
+                <div class="item-title">Machine Learning Engineer Intern</div>
+                <div class="item-place">Technoprobe</div>
+                <div class="description-box">
+                    Decision Support Systems: Developed data analysis projects aimed at supporting strategic decisions and improving
+                    corporate processes.
+                    Statistical Quality Control: Applied Acceptance Sampling techniques to optimize resource allocation and ensure rigorous
+                    quality standards.
+                </div>
+            </div>
+        </section>
 
-<!-- SKILLS -->
-<section class="skills">
-  <h2>Skills</h2>
+        <section id="education">
+            <h2><i class="fas fa-graduation-cap"></i> Education</h2>
 
-  <div class="tags">
-    <span>Python</span>
-    <span>NLP</span>
-    <span>Machine Learning</span>
-    <span>Deep Learning</span>
-    <span>spaCy</span>
-    <span>Transformers</span>
-    <span>FastAPI</span>
-  </div>
-</section>
+            <div class="timeline-item">
+                <span class="date-range">2025 - Present</span>
+                <div class="item-title">Master Degree in Data Science</div>
+                <div class="item-place">University of Milano-Bicocca</div>
+                
+                <div class="description-box">
+                    <strong>MSc in Data Science – Personalized Study Plan</strong><br><br>
+                    As part of my Master's degree, I designed a personalized study plan focused on <strong>advanced statistical modeling</strong> and <strong>modern machine learning techniques</strong>. Instead of standard introductory courses, I opted for advanced Bayesian statistics and modeling to strengthen my background in probabilistic reasoning and uncertainty quantification.
+                </div>
 
+                <div style="margin-top: 15px;">
+                    <span style="font-size: 0.85rem; font-weight: 600; color: #6b7280; text-transform: uppercase;">Key Courses:</span>
+                    <div class="tags-container">
+                        <span class="tag">Advanced Machine Learning</span>
+                        <span class="tag">Bayesian Statistics (M)</span>
+                        <span class="tag">Bayesian Statistical Modeling (M)</span>
+                        <span class="tag">ML and Decision Models</span>
+                        <span class="tag">Data Semantics</span>
+                        <span class="tag">Data Management & Viz</span>
+                        <span class="tag">NLP</span>
+                        <span class="tag">Text Mining & Search</span>
+                        <span class="tag">Reinforcement Learning</span>
+                        <span class="tag">Data Science Lab</span>
+                        <span class="tag">Financial Markets Analytics</span>
+                        <span class="tag">Social Issues in Info Society</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <span class="date-range">2022 - 2025</span>
+                <div class="item-title">Bachelor Degree in Statistics</div>
+                <div class="item-place">University of Milano-Bicocca</div>
+                <p style="margin-top: 5px; font-weight: 500;">Final Grade: 110 cum Laude</p>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2><i class="fas fa-code"></i> Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h4>Languages & Core</h4>
+                    <div class="tags-container">
+                        <span class="tag">Python</span>
+                        <span class="tag">R</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Git</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Machine Learning</h4>
+                    <div class="tags-container">
+                        <span class="tag">PyTorch</span>
+                        <span class="tag">TensorFlow</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">Pandas</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h4>Concepts</h4>
+                    <div class="tags-container">
+                        <span class="tag">Bayesian Modeling</span>
+                        <span class="tag">NLP</span>
+                        <span class="tag">Deep Learning</span>
+                        <span class="tag">Statistical Analysis</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <h2><i class="fas fa-laptop-code"></i> Projects</h2>
+            <p style="margin-bottom: 25px; color: var(--text-secondary);">
+                A collection of projects developed during my academic path and personal research.
+            </p>
+            
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <div>
+                        <span class="project-type">Individual Project</span>
+                        <h3 class="project-title">Tombola Montecarlo Simulation</h3>
+                        <p class="project-desc">
+                            A Python-based simulation of the Italian Tombola game to study probability distributions and winning strategies using Monte Carlo methods.
+                        </p>
+                    </div>
+                    <a href="https://github.com/aronetommaso/TombolaSimulation" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <span class="project-type">MSc Data Science</span>
+                        <h3 class="project-title">Global Warming Analysis</h3>
+                        <p class="project-desc">
+                            Developed for the <em>Data Visualization</em> exam. Focuses on plotting complex climate data to visualize global warming trends effectively.
+                        </p>
+                    </div>
+                    <a href="https://github.com/aronetommaso/DataViz-Project/tree/main" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <span class="project-type">MSc Data Science</span>
+                        <h3 class="project-title">Bitcoin Market Analysis</h3>
+                        <p class="project-desc">
+                            Developed for the <em>Data Management</em> exam. Covers data storage strategies, data modeling, and integration of market news.
+                        </p>
+                    </div>
+                    <a href="https://github.com/aronetommaso/DataMan-Project" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <span class="project-type">BSc Statistics</span>
+                        <h3 class="project-title">Exoplanet Temperature Study</h3>
+                        <p class="project-desc">
+                            Developed for <em>Computational Statistics</em>. Analysis of exoplanet temperatures using advanced regression and classification models.
+                        </p>
+                    </div>
+                    <a href="https://github.com/aronetommaso/Computational-Statistic-Project" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+
+                <div class="project-card">
+                    <div>
+                        <span class="project-type">BSc Statistics</span>
+                        <h3 class="project-title">Earthquake Classification</h3>
+                        <p class="project-desc">
+                            Developed for <em>Data Mining</em>. Application of classification techniques to distinguish seismic events into earthquake and non-earthquake categories.
+                        </p>
+                    </div>
+                    <a href="https://github.com/aronetommaso/Data-Mining-Project" target="_blank" class="project-link">
+                        <i class="fab fa-github"></i> View Code
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
 </body>
 </html>
