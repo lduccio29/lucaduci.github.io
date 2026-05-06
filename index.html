@@ -8,47 +8,58 @@
 
 <body>
 
-<!-- NAVBAR -->
-<nav>
-  <a href="#about">About</a>
-  <a href="#projects">Projects</a>
-  <a href="#skills">Skills</a>
-  <a href="#contact">Contact</a>
-</nav>
-
 <!-- HERO -->
 <section class="hero">
   <h1>Luca Duci</h1>
-  <p>AI Engineer | Data Scientist</p>
+  <p>AI Engineer · Data Scientist</p>
 </section>
 
 <!-- ABOUT -->
-<section id="about">
-  <h2>About</h2>
-  <p>Master’s student in Data Science at UNIMIB, focused on NLP and AI systems.</p>
+<section class="about">
+  <div class="container">
+    <div class="text">
+      <h2>About Me</h2>
+      <p>
+        Master’s student in Data Science at UNIMIB.
+        Specialized in NLP, AI systems and sensitive data processing.
+        Experienced in building real-world AI pipelines.
+      </p>
+    </div>
+  </div>
 </section>
 
 <!-- PROJECTS -->
-<section id="projects">
+<section class="projects">
   <h2>Projects</h2>
 
-  <div class="project">
-    <h3>Medical Text Anonymization</h3>
-    <p>NER system for anonymizing clinical text using regex, spaCy and transformers.</p>
-  </div>
+  <div class="grid">
 
+    <div class="card">
+      <h3>Medical Text Anonymization</h3>
+      <p>NER + regex + transformers for clinical data anonymization.</p>
+    </div>
+
+    <div class="card">
+      <h3>AI Chatbot (RAG)</h3>
+      <p>LLM-based chatbot with document retrieval.</p>
+    </div>
+
+  </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills">
+<section class="skills">
   <h2>Skills</h2>
-  <p>Python, NLP, ML, Deep Learning, spaCy, Transformers</p>
-</section>
 
-<!-- CONTACT -->
-<section id="contact">
-  <h2>Contact</h2>
-  <p>Email: tua@email.com</p>
+  <div class="tags">
+    <span>Python</span>
+    <span>NLP</span>
+    <span>Machine Learning</span>
+    <span>Deep Learning</span>
+    <span>spaCy</span>
+    <span>Transformers</span>
+    <span>FastAPI</span>
+  </div>
 </section>
 
 </body>
